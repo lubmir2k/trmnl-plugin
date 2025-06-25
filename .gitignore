@@ -1,0 +1,23 @@
+# Python-specific ignores
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python/
+env/
+venv/
+*.egg
+*.egg-info/
+.env
+.flaskenv
+
+# PythonAnywhere specific ignores
+# You might consider ignoring these, but be mindful if you have reasons
+# to track specific configuration files that PythonAnywhere manages.
+# /var/www/
+# *.log
+
+# Operating System files
+.DS_Store
+.idea/
+.vscode/
