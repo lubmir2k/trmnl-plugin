@@ -41,17 +41,18 @@ WEATHER_CODE_MAP = {
 def get_vienna_weather():
     """
     Fetches current weather data for Vienna from the Open-Meteo API.
-    Uses the 'forecast' endpoint to retrieve current temperature and weather code.
-    Includes robust error handling for API requests.
+    Uses the 'forecast' endpoint with the `current_weather` option to retrieve
+    the current temperature and weather code. Includes robust error handling for
+    API requests.
     """
     try:
-        url = "https://api.open-meteo.com/v1/forecast" # Using 'forecast' as it often covers 'current' data reliably
+        url = "https://api.open-meteo.com/v1/forecast"  # Using 'forecast' as it
         params = {
             "latitude": 48.2082,
             "longitude": 16.3738,
-            "current": "temperature_2m,weather_code", # Requesting specific current variables
-            "timezone": "Europe/Vienna", # Specify timezone for current data accuracy
-            "forecast_days": 1 # Requesting only the current day's data
+            "current_weather": True,  # Request the current weather block
+            "timezone": "Europe/Vienna",
+            "forecast_days": 1
         }
 
         # Make the API request with a timeout
@@ -59,10 +60,10 @@ def get_vienna_weather():
         response.raise_for_status() # Raise an HTTPError for bad responses (4xx or 5xx)
 
         data = response.json()
-        current = data.get("current", {})
+        current = data.get("current_weather", {})
 
-        temperature = current.get("temperature_2m")
-        weather_code = current.get("weather_code")
+        temperature = current.get("temperature")
+        weather_code = current.get("weathercode")
 
         # Convert weather_code to integer, default to 0 if None
         weather_code_int = int(weather_code) if weather_code is not None else 0
