@@ -1,0 +1,13 @@
+name: Auto-Approve Pull Requests
+on:
+  pull_request:
+    types: [opened, synchronize]
+jobs:
+  approve:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write    # grant the workflow permission to submit reviews
+    steps:
+      - uses: hmarr/auto-approve-action@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
