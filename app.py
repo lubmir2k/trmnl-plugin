@@ -41,8 +41,8 @@ WEATHER_CODE_MAP = {
 def get_vienna_weather():
     """
     Fetches current weather data for Vienna from the Open-Meteo API.
-    Uses the 'forecast' endpoint with the `current_weather` option to retrieve
-    the current temperature and weather code. Includes robust error handling for
+    Uses the 'forecast' endpoint with ``current_weather=True`` to request the
+    current temperature and weather code. Includes robust error handling for
     API requests.
     """
     try:
