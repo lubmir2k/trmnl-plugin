@@ -129,40 +129,40 @@ def hello_world():
     """
     return 'Hello, World!'
 
-@app.route('/trml_webhook', methods=['POST'])
-def trml_webhook():
+@app.route('/trmnl_webhook', methods=['POST'])
+def trmnl_webhook():
     """
-    Handles incoming webhook data from TRML.
+    Handles incoming webhook data from TRMNL.
     It expects JSON data and prints it to the console for demonstration.
     In a real application, you would process this data and potentially store it
     or use it to update your application's state.
     """
     if request.is_json:
         data = request.get_json()
-        print(f"Received TRML webhook data: {data}")
+        print(f"Received TRMNL webhook data: {data}")
 
         return jsonify({"status": "success", "message": "Webhook received"}), 200
     else:
-        print("Received non-JSON TRML webhook request.")
+        print("Received non-JSON TRMNL webhook request.")
         return jsonify({"status": "error", "message": "Request must be JSON"}), 400
 
-@app.route('/trml_data', methods=['GET'])
-def trml_data():
+@app.route('/trmnl_data', methods=['GET'])
+def trmnl_data():
     """
-    Provides dynamic data for TRML to poll.
+    Provides dynamic data for TRMNL to poll.
     This endpoint fetches current weather data for Vienna and local time.
     """
     weather_data = get_vienna_weather()
     current_time = get_vienna_time()
 
-    data_for_trml = {
+    data_for_trmnl = {
         "title": "Vienna Weather Plugin",
         "message": f"Current time in Vienna: {current_time}",
         "temperature": weather_data["temperature"],
         "weather": weather_data["weather_simple"] # Use the simplified weather string for Liquid
     }
 
-    return jsonify(data_for_trml), 200
+    return jsonify(data_for_trmnl), 200
 
 if __name__ == '__main__':
     # Run the Flask application in debug mode for development.
