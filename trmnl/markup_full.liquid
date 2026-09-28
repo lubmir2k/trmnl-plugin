@@ -1,0 +1,62 @@
+<!-- Full layout. Data comes from trmnl/serverless.py: title, updated, days[], error,
+     homework[], homework_more, homework_error. -->
+<div class="layout">
+  {% if error != "" %}
+    <div class="columns">
+      <div class="column">
+        <span class="title">Kein Stundenplan</span>
+        <span class="label">{{ error }}</span>
+      </div>
+    </div>
+  {% else %}
+    <div class="columns">
+      {% for day in days %}
+        <div class="column">
+          <span class="title">{{ day.label }}{% if day.relative != "" %} · {{ day.relative }}{% endif %}</span>
+          <span class="label label--small">Schluss {{ day.ends }}</span>
+          <table class="table table--small" data-table-limit="true">
+            <tbody>
+              {% for l in day.lessons %}
+                <tr>
+                  <td><span class="label label--small">{{ l.start }}</span></td>
+                  <td>
+                    <span class="label" data-clamp="1">
+                      {% if l.cancelled %}<s>{{ l.subject }}</s> entfällt
+                      {% elsif l.changed %}<b>{{ l.subject }}*</b>
+                      {% else %}{{ l.subject }}{% endif %}
+                    </span>
+                    {% if l.note != "" %}<span class="label label--small" data-clamp="1">{{ l.note }}</span>{% endif %}
+                  </td>
+                  <td><span class="label label--small" data-clamp="1">{{ l.room }}{% if l.changed %} · {{ l.teacher }}{% endif %}</span></td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% endfor %}
+      <div class="column">
+        <span class="title">Hausübungen</span>
+        {% if homework_error != "" %}
+          <span class="label label--small">{{ homework_error }}</span>
+        {% elsif homework.size == 0 %}
+          <span class="label label--small">keine offenen</span>
+        {% else %}
+          {% for h in homework %}
+            <!-- plain stacked divs: the framework's "item" class lays its children out
+                 side by side, which squeezed date, subject and text into three narrow
+                 columns (first render on TRMNL, 28.09.2026) -->
+            <div style="margin-top: 8px;">
+              <div class="label label--small"><b>{{ h.subject }}</b> · bis {{ h.due }}{% if h.relative != "" %} · {{ h.relative }}{% endif %}</div>
+              <div class="label label--small" data-clamp="2">{{ h.text }}</div>
+            </div>
+          {% endfor %}
+          {% if homework_more > 0 %}<span class="label label--small">+ {{ homework_more }} weitere</span>{% endif %}
+        {% endif %}
+      </div>
+    </div>
+  {% endif %}
+</div>
+<div class="title_bar">
+  <span class="title">{{ title }}</span>
+  <span class="instance">Stand {{ updated }}</span>
+</div>
