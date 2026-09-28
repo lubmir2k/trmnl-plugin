@@ -1,0 +1,25 @@
+- keyname: title
+  field_type: string
+  name: Title
+  description: Shown in the title bar
+  default: Stundenplan
+  optional: true
+- keyname: server
+  field_type: string
+  name: WebUntis server
+  description: Host name only, as in the WebUntis address bar
+  help_text: e.g. myschool.webuntis.com
+- keyname: school
+  field_type: string
+  name: School
+  description: The school's WebUntis short name (the ?school= value)
+- keyname: username
+  field_type: string
+  name: WebUntis user
+- keyname: password
+  field_type: password
+  name: WebUntis password
+- keyname: student_id
+  field_type: number
+  name: Student id
+  description: The entityId in the WebUntis timetable URL
