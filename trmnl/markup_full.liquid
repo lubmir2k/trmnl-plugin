@@ -1,4 +1,5 @@
-<!-- Full layout. Data comes from trmnl/serverless.py: title, updated, days[], error. -->
+<!-- Full layout. Data comes from trmnl/serverless.py: title, updated, days[], error,
+     homework[], homework_more, homework_error. -->
 <div class="layout">
   {% if error != "" %}
     <div class="columns">
@@ -33,6 +34,22 @@
           </table>
         </div>
       {% endfor %}
+      <div class="column">
+        <span class="title">Hausübungen</span>
+        {% if homework_error != "" %}
+          <span class="label label--small">{{ homework_error }}</span>
+        {% elsif homework.size == 0 %}
+          <span class="label label--small">keine offenen</span>
+        {% else %}
+          {% for h in homework %}
+            <div class="item">
+              <span class="label label--small">bis {{ h.due }}{% if h.relative != "" %} · {{ h.relative }}{% endif %} · <b>{{ h.subject }}</b></span>
+              <span class="label" data-clamp="3">{{ h.text }}</span>
+            </div>
+          {% endfor %}
+          {% if homework_more > 0 %}<span class="label label--small">+ {{ homework_more }} weitere</span>{% endif %}
+        {% endif %}
+      </div>
     </div>
   {% endif %}
 </div>
