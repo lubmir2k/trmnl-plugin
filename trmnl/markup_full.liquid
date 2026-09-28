@@ -42,9 +42,12 @@
           <span class="label label--small">keine offenen</span>
         {% else %}
           {% for h in homework %}
-            <div class="item">
-              <span class="label label--small">bis {{ h.due }}{% if h.relative != "" %} · {{ h.relative }}{% endif %} · <b>{{ h.subject }}</b></span>
-              <span class="label" data-clamp="3">{{ h.text }}</span>
+            <!-- plain stacked divs: the framework's "item" class lays its children out
+                 side by side, which squeezed date, subject and text into three narrow
+                 columns (first render on TRMNL, 28.09.2026) -->
+            <div style="margin-top: 8px;">
+              <div class="label label--small"><b>{{ h.subject }}</b> · bis {{ h.due }}{% if h.relative != "" %} · {{ h.relative }}{% endif %}</div>
+              <div class="label label--small" data-clamp="2">{{ h.text }}</div>
             </div>
           {% endfor %}
           {% if homework_more > 0 %}<span class="label label--small">+ {{ homework_more }} weitere</span>{% endif %}
