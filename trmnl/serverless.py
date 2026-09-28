@@ -1,5 +1,5 @@
 """
-TRMNL Serverless function: a pupil's WebUntis timetable for the next two school days,
+TRMNL Serverless function: a pupil's WebUntis timetable for the next school day,
 plus open homework.
 
 Paste this into the plugin's markup editor -> Serverless tab (language: Python).
@@ -30,6 +30,7 @@ UA = "trmnl-webuntis/1 (private household use)"
 DEADLINE_S = 4.0     # TRMNL kills the run at 5 s; leave room to return an error instead
 LOOKAHEAD_DAYS = 10  # far enough to jump a weekend plus a short holiday
 SWITCH_HOUR = 15     # from 15:00 on, today is over: start the display at tomorrow
+DAYS_SHOWN = 1       # was 2 until 28.09.2026; one day plus homework reads better
 HOMEWORK_DAYS = 14   # show open homework due within this many days
 HOMEWORK_MAX = 4     # the screen fits about this many
 DAY_NAMES = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"]
@@ -239,7 +240,7 @@ def pick_homework(data, today):
     return items[:HOMEWORK_MAX], max(0, len(items) - HOMEWORK_MAX)
 
 
-def pick_days(periods, now, count=2):
+def pick_days(periods, now, count=DAYS_SHOWN):
     by_date = {}
     for p in periods:
         by_date.setdefault(int(p["date"]), []).append(p)

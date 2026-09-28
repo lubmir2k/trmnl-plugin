@@ -1,7 +1,7 @@
 # WebUntis timetable on TRMNL (Serverless)
 
-Shows a pupil's WebUntis timetable for the next two school days (from 15:00 on, starting
-tomorrow). Cancelled lessons are struck through; substitutions and room changes are bold
+Shows a pupil's WebUntis timetable for the next school day (from 15:00 on, tomorrow's)
+and open homework. Cancelled lessons are struck through; substitutions and room changes are bold
 with an asterisk and show the teacher. Runs entirely on TRMNL: no server, no Mac.
 
 | File | Where it goes in TRMNL |
