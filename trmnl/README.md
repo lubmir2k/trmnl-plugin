@@ -19,7 +19,11 @@ Setup:
 2. Paste `serverless.py` into the Serverless tab and `markup_full.liquid` into Full.
 3. Strategy: **Polling**, with any small URL that always answers 200 - the fetched data
    is ignored, the poll only exists to trigger the function. We use
-   `https://api.open-meteo.com/v1/forecast?latitude=48.2&longitude=16.37&current_weather=true`.
+   `https://api.open-meteo.com/v1/forecast?latitude=48.2&longitude=16.37&daily=sunrise&forecast_days=1`.
+   The response may be constant: measured 28.09.2026 over four scheduled hourly refreshes,
+   two with a changing response (`current_weather=true`) and two with this constant one -
+   all four ran the function and redrew the screen, none logged "Skipping: No change in
+   data". (The output always differs anyway: it carries the `updated` time.)
    Not Webhook: Serverless transforms data that *arrives*, so with Webhook and nobody
    posting it never runs (tried 28.09.2026 on this advice - only `{{ trmnl }}` existed and
    the screen said "Kein Stundenplan" with no reason).
